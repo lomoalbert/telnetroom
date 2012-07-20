@@ -25,6 +25,10 @@ def listening(socklist):
         else:
             words=sock.recv(8196)
             print [words]
+            if not words:
+                sock.close()
+                socklist.remove(sock)
+                continue
             sendall(socklist,words,sock)
 def sendall(socklist,line,tsock):
     if '\xff' in line:return#对telnet命令符号过滤
